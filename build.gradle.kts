@@ -25,6 +25,7 @@ subprojects {
     dependencies {
         implementation("org.jetbrains.kotlin:kotlin-reflect")
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
+        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
         testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     }
 
