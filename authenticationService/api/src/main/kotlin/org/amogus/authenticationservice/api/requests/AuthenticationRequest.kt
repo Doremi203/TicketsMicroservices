@@ -1,4 +1,4 @@
-package org.amogus.authenticationservice.requests
+package org.amogus.authenticationservice.api.requests
 
 import jakarta.validation.constraints.NotBlank
 

@@ -1,4 +1,4 @@
-package org.amogus.authenticationservice.responses
+package org.amogus.authenticationservice.api.responses
 
 data class AuthenticationResponse(
     val authenticationToken: String,

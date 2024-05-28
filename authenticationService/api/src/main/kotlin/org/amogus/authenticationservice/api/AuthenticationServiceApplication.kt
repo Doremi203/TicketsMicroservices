@@ -1,4 +1,4 @@
-package org.amogus.authenticationservice
+package org.amogus.authenticationservice.api
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

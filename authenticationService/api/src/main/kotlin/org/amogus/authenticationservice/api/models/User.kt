@@ -1,4 +1,4 @@
-package org.amogus.authenticationservice.models
+package org.amogus.authenticationservice.api.models
 
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority

@@ -1,8 +1,8 @@
-package org.amogus.authenticationservice.controllers
+package org.amogus.authenticationservice.api.controllers
 
 import jakarta.validation.Valid
-import org.amogus.authenticationservice.requests.AuthenticationRequest
-import org.amogus.authenticationservice.responses.AuthenticationResponse
+import org.amogus.authenticationservice.api.requests.AuthenticationRequest
+import org.amogus.authenticationservice.api.responses.AuthenticationResponse
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody

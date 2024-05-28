@@ -1,4 +1,4 @@
-package org.amogus.authenticationservice.services.interfaces
+package org.amogus.authenticationservice.api.services.interfaces
 
 import org.springframework.security.core.userdetails.UserDetails
 

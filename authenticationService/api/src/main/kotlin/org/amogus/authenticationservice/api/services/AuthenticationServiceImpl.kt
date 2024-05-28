@@ -1,11 +1,11 @@
-package org.amogus.authenticationservice.services
+package org.amogus.authenticationservice.api.services
 
-import org.amogus.authenticationservice.services.interfaces.AuthenticationService
-import org.amogus.authenticationservice.services.interfaces.JwtService
-import org.amogus.authenticationservice.models.User
+import org.amogus.authenticationservice.api.services.interfaces.AuthenticationService
+import org.amogus.authenticationservice.api.services.interfaces.JwtService
+import org.amogus.authenticationservice.api.models.User
 import org.amogus.authenticationservice.repositories.interfaces.UserRepository
-import org.amogus.authenticationservice.requests.AuthenticationRequest
-import org.amogus.authenticationservice.responses.AuthenticationResponse
+import org.amogus.authenticationservice.api.requests.AuthenticationRequest
+import org.amogus.authenticationservice.api.responses.AuthenticationResponse
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.userdetails.UserDetailsService
