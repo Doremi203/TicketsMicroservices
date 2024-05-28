@@ -3,6 +3,7 @@ package org.amogus.authenticationservice.api.controllers
 import jakarta.validation.Valid
 import org.amogus.authenticationservice.api.requests.AuthenticationRequest
 import org.amogus.authenticationservice.api.responses.AuthenticationResponse
+import org.amogus.authenticationservice.domain.interfaces.AuthenticationService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody

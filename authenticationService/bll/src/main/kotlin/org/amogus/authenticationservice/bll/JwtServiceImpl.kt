@@ -1,4 +1,4 @@
-package org.amogus.restarogus.services.authorization
+package org.amogus.authenticationservice.bll
 
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.ExpiredJwtException

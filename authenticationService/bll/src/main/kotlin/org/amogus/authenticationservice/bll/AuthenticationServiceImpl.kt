@@ -1,8 +1,6 @@
-package org.amogus.authenticationservice.api.services
+package org.amogus.authenticationservice.bll
 
-import org.amogus.authenticationservice.api.services.interfaces.AuthenticationService
-import org.amogus.authenticationservice.api.services.interfaces.JwtService
-import org.amogus.authenticationservice.api.models.User
+import org.amogus.authenticationservice
 import org.amogus.authenticationservice.repositories.interfaces.UserRepository
 import org.amogus.authenticationservice.api.requests.AuthenticationRequest
 import org.amogus.authenticationservice.api.responses.AuthenticationResponse

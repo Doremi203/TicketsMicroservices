@@ -1,4 +1,4 @@
-package org.amogus.authenticationservice.api.services.interfaces
+package org.amogus.authenticationservice.domain.interfaces
 
 import org.amogus.authenticationservice.api.requests.AuthenticationRequest
 import org.amogus.authenticationservice.api.responses.AuthenticationResponse
