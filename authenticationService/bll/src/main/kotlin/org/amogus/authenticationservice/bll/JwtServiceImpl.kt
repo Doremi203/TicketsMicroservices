@@ -5,9 +5,9 @@ import io.jsonwebtoken.ExpiredJwtException
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.io.Decoders
 import io.jsonwebtoken.security.Keys
-import org.amogus.restarogus.exceptions.IllegalJwtTokenException
-import org.amogus.restarogus.services.interfaces.authorization.JwtService
-import org.springframework.security.core.userdetails.UserDetails
+import org.amogus.authenticationservice.domain.interfaces.services.JwtService
+import org.amogus.authenticationservice.domain.models.User
+import org.amogus.authenticationservice.bll.exceptions.IllegalJwtTokenException
 import java.util.*
 import javax.crypto.SecretKey
 
@@ -15,24 +15,25 @@ class JwtServiceImpl(
     private val secret: String,
     expirationTimeInMinutes: Int
 ) : JwtService {
-
     private val expirationTimeInMillis = 1000 * 60 * expirationTimeInMinutes
-    override fun isTokenValid(jwtToken: String, userDetails: UserDetails): Boolean {
+
+    override fun isTokenValid(jwtToken: String, user: User): Boolean {
         val userName = extractUserName(jwtToken)
-        return userName == userDetails.username
+        return userName == user.username
     }
 
-    override fun generateToken(userDetails: UserDetails): String {
-        return generateToken(HashMap(), userDetails)
+    override fun generateToken(user: User): String {
+        return generateToken(HashMap(), user)
     }
 
-    override fun generateToken(extraClaims: Map<String, Any>, userDetails: UserDetails): String {
+    override fun generateToken(extraClaims: Map<String, Any>, user: User): String {
+        val time = System.currentTimeMillis()
         return Jwts
             .builder()
             .claims(extraClaims)
-            .subject(userDetails.username)
-            .issuedAt(Date(System.currentTimeMillis()))
-            .expiration(Date(System.currentTimeMillis() + expirationTimeInMillis))
+            .subject(user.username)
+            .issuedAt(Date(time))
+            .expiration(Date(time + expirationTimeInMillis))
             .signWith(getSecretKey(), Jwts.SIG.HS256)
             .compact()
     }
@@ -67,5 +68,4 @@ class JwtServiceImpl(
         val bytes = Decoders.BASE64.decode(secret)
         return Keys.hmacShaKeyFor(bytes)
     }
-
 }
