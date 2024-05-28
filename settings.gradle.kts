@@ -1,2 +1,4 @@
 rootProject.name = "TicketsMicroservices"
-include("authenticationService")
+include("authenticationService:api")
+include("authenticationService:domain")
+include("authenticationService:dal")
