@@ -1,7 +1,11 @@
 package org.amogus.authenticationservice.domain.models
 
+import java.time.LocalDateTime
+
 data class User(
-    val username: String,
+    val nickname: String,
+    val email: String,
     val password: String,
-    val id: Long = 0L,
+    val created: LocalDateTime,
+    val id: Int = 0,
 )

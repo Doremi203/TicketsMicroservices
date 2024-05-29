@@ -1,6 +1,7 @@
 package org.amogus.authenticationservice.domain.models
 
-data class Credentials(
+data class RegistrationData(
+    val nickname: String,
     val email: String,
     val password: String
 )
