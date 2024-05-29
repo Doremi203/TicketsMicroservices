@@ -1,7 +1,11 @@
 package org.amogus.authenticationservice.domain.models
 
+import org.amogus.authenticationservice.domain.types.Email
+import org.amogus.authenticationservice.domain.types.Nickname
+import org.amogus.authenticationservice.domain.types.Password
+
 data class RegistrationData(
-    val nickname: String,
-    val email: String,
-    val password: String
+    val nickname: Nickname,
+    val email: Email,
+    val password: Password
 )

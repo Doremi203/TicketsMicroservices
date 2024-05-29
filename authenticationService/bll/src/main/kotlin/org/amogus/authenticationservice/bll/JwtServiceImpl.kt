@@ -5,9 +5,10 @@ import io.jsonwebtoken.ExpiredJwtException
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.io.Decoders
 import io.jsonwebtoken.security.Keys
+import org.amogus.authenticationservice.bll.exceptions.IllegalJwtTokenException
 import org.amogus.authenticationservice.domain.interfaces.services.JwtService
 import org.amogus.authenticationservice.domain.models.User
-import org.amogus.authenticationservice.bll.exceptions.IllegalJwtTokenException
+import org.amogus.authenticationservice.domain.types.Email
 import java.util.*
 import javax.crypto.SecretKey
 
@@ -18,8 +19,8 @@ class JwtServiceImpl(
     private val expirationTimeInMillis = 1000 * 60 * expirationTimeInMinutes
 
     override fun isTokenValid(jwtToken: String, user: User): Boolean {
-        val userName = extractUserName(jwtToken)
-        return userName == user.username
+        val email = extractEmail(jwtToken)
+        return email == user.email
     }
 
     override fun generateToken(user: User): String {
@@ -31,16 +32,14 @@ class JwtServiceImpl(
         return Jwts
             .builder()
             .claims(extraClaims)
-            .subject(user.username)
+            .subject(user.email.value)
             .issuedAt(Date(time))
             .expiration(Date(time + expirationTimeInMillis))
             .signWith(getSecretKey(), Jwts.SIG.HS256)
             .compact()
     }
 
-    override fun extractUserName(jwtToken: String): String? {
-        return extractClaim(jwtToken, Claims::getSubject)
-    }
+    override fun extractEmail(jwtToken: String) = Email(extractClaim(jwtToken, Claims::getSubject))
 
     private fun <T> extractClaim(jwtToken: String, claimsResolver: (Claims) -> T): T {
         val claims = extractClaims(jwtToken)
@@ -55,11 +54,9 @@ class JwtServiceImpl(
                 .build()
                 .parseSignedClaims(jwtToken)
                 .payload
-        }
-        catch (e: ExpiredJwtException) {
+        } catch (e: ExpiredJwtException) {
             throw IllegalJwtTokenException("JWT token has expired")
-        }
-        catch (e: Exception) {
+        } catch (e: Exception) {
             throw IllegalJwtTokenException("Incorrect JWT token")
         }
     }

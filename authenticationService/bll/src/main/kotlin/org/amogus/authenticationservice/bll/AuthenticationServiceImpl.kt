@@ -5,11 +5,14 @@ import org.amogus.authenticationservice.domain.interfaces.services.JwtService
 import org.amogus.authenticationservice.domain.interfaces.services.UserService
 import org.amogus.authenticationservice.domain.models.AuthenticationResult
 import org.amogus.authenticationservice.domain.models.Credentials
+import org.amogus.authenticationservice.domain.models.RegistrationData
 import org.amogus.authenticationservice.domain.models.User
+import org.amogus.authenticationservice.domain.types.Password
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
+import java.time.LocalDateTime
 
 @Service
 class AuthenticationServiceImpl(
@@ -18,10 +21,12 @@ class AuthenticationServiceImpl(
     private val authenticationManager: AuthenticationManager,
     private val passwordEncoder: PasswordEncoder
 ) : AuthenticationService {
-    override suspend fun register(credentials: Credentials): AuthenticationResult? {
+    override suspend fun register(registrationData: RegistrationData): AuthenticationResult {
         val user = User(
-            username = credentials.username,
-            password = passwordEncoder.encode(credentials.password)
+            nickname = registrationData.nickname,
+            email = registrationData.email,
+            password = Password(passwordEncoder.encode(registrationData.password.value)),
+            created = LocalDateTime.now(),
         )
         val userId = userService.add(user)
 
@@ -32,13 +37,13 @@ class AuthenticationServiceImpl(
         return AuthenticationResult(jwtToken)
     }
 
-    override suspend fun login(credentials: Credentials): AuthenticationResult? {
-        val user = userService.getByUsername(credentials.username)
+    override suspend fun login(credentials: Credentials): AuthenticationResult {
+        val user = userService.getByEmail(credentials.email)
 
         authenticationManager.authenticate(
             UsernamePasswordAuthenticationToken(
-                credentials.username,
-                credentials.password
+                credentials.email.value,
+                credentials.password.value
             )
         )
         val jwtToken = jwtService.generateToken(user)
