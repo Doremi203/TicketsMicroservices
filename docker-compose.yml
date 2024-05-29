@@ -1,0 +1,10 @@
+services:
+  authentication-service-db:
+    image: postgres
+    container_name: authentication-service-db
+    environment:
+      POSTGRES_USER: ${AUTH_SERVICE_DB_USER}
+      POSTGRES_PASSWORD: ${AUTH_SERVICE_DB_PASSWORD}
+      POSTGRES_DB: ${AUTH_SERVICE_DB_NAME}
+    ports:
+      - "5432:5432"

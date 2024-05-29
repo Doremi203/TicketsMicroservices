@@ -1,50 +1,49 @@
 package org.amogus.authenticationservice.bll
 
-import org.amogus.authenticationservice
-import org.amogus.authenticationservice.repositories.interfaces.UserRepository
-import org.amogus.authenticationservice.api.requests.AuthenticationRequest
-import org.amogus.authenticationservice.api.responses.AuthenticationResponse
+import org.amogus.authenticationservice.domain.interfaces.services.AuthenticationService
+import org.amogus.authenticationservice.domain.interfaces.services.JwtService
+import org.amogus.authenticationservice.domain.interfaces.services.UserService
+import org.amogus.authenticationservice.domain.models.AuthenticationResult
+import org.amogus.authenticationservice.domain.models.Credentials
+import org.amogus.authenticationservice.domain.models.User
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
-import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 
 @Service
 class AuthenticationServiceImpl(
-    private val userDetailsService: UserDetailsService,
-    private val userRepository: UserRepository,
+    private val userService: UserService,
     private val jwtService: JwtService,
     private val authenticationManager: AuthenticationManager,
     private val passwordEncoder: PasswordEncoder
 ) : AuthenticationService {
-    override fun register(request: AuthenticationRequest): AuthenticationResponse? {
+    override suspend fun register(credentials: Credentials): AuthenticationResult? {
         val user = User(
-            username = request.username,
-            password = passwordEncoder.encode(request.password),
-            role = Role.valueOf(request.role)
+            username = credentials.username,
+            password = passwordEncoder.encode(credentials.password)
         )
-        val userId = userRepository.add(user)
+        val userId = userService.add(user)
 
         val jwtToken = jwtService.generateToken(
             user.copy(id = userId)
         )
 
-        return AuthenticationResponse(jwtToken)
+        return AuthenticationResult(jwtToken)
     }
 
-    override fun login(request: AuthenticationRequest): AuthenticationResponse? {
-        val user = userDetailsService.loadUserByUsername(request.username)
+    override suspend fun login(credentials: Credentials): AuthenticationResult? {
+        val user = userService.getByUsername(credentials.username)
 
         authenticationManager.authenticate(
             UsernamePasswordAuthenticationToken(
-                request.username,
-                request.password
+                credentials.username,
+                credentials.password
             )
         )
         val jwtToken = jwtService.generateToken(user)
 
-        return AuthenticationResponse(jwtToken)
+        return AuthenticationResult(jwtToken)
     }
 
 }

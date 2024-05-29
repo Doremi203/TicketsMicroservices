@@ -3,7 +3,8 @@ package org.amogus.authenticationservice.api.controllers
 import jakarta.validation.Valid
 import org.amogus.authenticationservice.api.requests.AuthenticationRequest
 import org.amogus.authenticationservice.api.responses.AuthenticationResponse
-import org.amogus.authenticationservice.domain.interfaces.AuthenticationService
+import org.amogus.authenticationservice.domain.interfaces.services.AuthenticationService
+import org.amogus.authenticationservice.domain.models.Credentials
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -17,11 +18,23 @@ class AuthenticationController(
 ) {
     @PostMapping("/register")
     suspend fun register(@Valid @RequestBody request: AuthenticationRequest): ResponseEntity<AuthenticationResponse> {
-        return ResponseEntity.ok(authenticationService.register(request))
+        return ResponseEntity.ok(
+            AuthenticationResponse(
+                authenticationService.register(
+                    Credentials(request.username, request.password)
+                ).token
+            )
+        )
     }
 
     @PostMapping("/login")
     suspend fun login(@Valid @RequestBody request: AuthenticationRequest): ResponseEntity<AuthenticationResponse> {
-        return ResponseEntity.ok(authenticationService.login(request))
+        return ResponseEntity.ok(
+            AuthenticationResponse(
+                authenticationService.login(
+                    Credentials(request.username, request.password)
+                ).token
+            )
+        )
     }
 }
