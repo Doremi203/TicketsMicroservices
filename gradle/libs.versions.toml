@@ -6,6 +6,7 @@ r2dbc-pool = "1.0.1.RELEASE"
 postgres-r2dbc = "1.0.5.RELEASE"
 postgres-jdbc = "42.7.3"
 spring-jdbc = "6.1.8"
+spring-openApi = "2.5.0"
 liquibase-core = "4.28.0"
 coroutines = "1.8.1"
 
@@ -16,6 +17,7 @@ spring-webFlux = { module = "org.springframework.boot:spring-boot-starter-webflu
 spring-security = { module = "org.springframework.boot:spring-boot-starter-security", version.ref = "spring" }
 spring-validation = { module = "org.springframework.boot:spring-boot-starter-validation", version.ref = "spring" }
 spring-jdbc = { module = "org.springframework:spring-jdbc", version.ref = "spring-jdbc" }
+spring-openApi = { module = "org.springdoc:springdoc-openapi-starter-webflux-ui", version.ref = "spring-openApi" }
 jwt-api = { module = "io.jsonwebtoken:jjwt-api", version.ref = "jwt"}
 jwt-impl = { module = "io.jsonwebtoken:jjwt-impl", version.ref = "jwt"}
 jwt-jackson = { module = "io.jsonwebtoken:jjwt-jackson", version.ref = "jwt"}

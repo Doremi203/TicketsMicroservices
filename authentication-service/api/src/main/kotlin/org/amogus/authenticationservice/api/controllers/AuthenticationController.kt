@@ -1,6 +1,7 @@
 package org.amogus.authenticationservice.api.controllers
 
 import jakarta.validation.Valid
+import org.amogus.authenticationservice.api.api.AuthenticationApi
 import org.amogus.authenticationservice.api.requests.AuthenticationRequest
 import org.amogus.authenticationservice.api.requests.RegistrationRequest
 import org.amogus.authenticationservice.api.responses.AuthenticationResponse
@@ -20,9 +21,9 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/api/auth")
 class AuthenticationController(
     private val authenticationService: AuthenticationService
-) {
+) : AuthenticationApi {
     @PostMapping("/register")
-    suspend fun register(@Valid @RequestBody request: RegistrationRequest): ResponseEntity<AuthenticationResponse> {
+    override suspend fun register(@Valid @RequestBody request: RegistrationRequest): ResponseEntity<AuthenticationResponse> {
         return ResponseEntity.ok(
             AuthenticationResponse(
                 authenticationService.register(
@@ -37,7 +38,7 @@ class AuthenticationController(
     }
 
     @PostMapping("/login")
-    suspend fun login(@Valid @RequestBody request: AuthenticationRequest): ResponseEntity<AuthenticationResponse> {
+    override suspend fun login(@Valid @RequestBody request: AuthenticationRequest): ResponseEntity<AuthenticationResponse> {
         return ResponseEntity.ok(
             AuthenticationResponse(
                 authenticationService.login(

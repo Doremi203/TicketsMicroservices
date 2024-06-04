@@ -9,6 +9,7 @@ plugins {
 dependencies {
     api(project(":bll"))
 
+    implementation(libs.spring.openApi)
     implementation(libs.spring.webFlux)
     implementation(libs.spring.security)
     implementation(libs.spring.validation)
