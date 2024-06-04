@@ -1,4 +1,22 @@
 services:
+  java:
+    env_file:
+      - .env
+    build:
+      context: .
+      dockerfile: Dockerfile
+  authentication-service:
+    container_name: authentication-service
+    build:
+      context: authentication-service
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    ports:
+      - "8080:8080"
+    depends_on:
+      authentication-service-db:
+        condition: service_healthy
   authentication-service-db:
     image: postgres
     container_name: authentication-service-db
@@ -8,3 +26,9 @@ services:
       POSTGRES_DB: ${AUTH_SERVICE_DB_NAME}
     ports:
       - "5432:5432"
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "${AUTH_SERVICE_DB_USER}" ]
+      start_period: 10s
+      interval: 10s
+      timeout: 5s
+      retries: 5
