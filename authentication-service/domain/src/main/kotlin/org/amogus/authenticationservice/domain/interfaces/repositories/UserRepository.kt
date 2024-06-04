@@ -1,7 +1,6 @@
 package org.amogus.authenticationservice.domain.interfaces.repositories
 
 import org.amogus.authenticationservice.domain.entities.UserEntityV1
-import org.amogus.authenticationservice.domain.models.User
 import org.amogus.authenticationservice.domain.types.Email
 
 interface UserRepository {

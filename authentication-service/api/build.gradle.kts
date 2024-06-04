@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
     alias(libs.plugins.jvm)
     alias(libs.plugins.spring.plugin)
@@ -9,7 +7,7 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":bll"))
+    api(project(":bll"))
 
     implementation(libs.spring.webFlux)
     implementation(libs.spring.security)

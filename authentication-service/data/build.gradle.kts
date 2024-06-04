@@ -5,9 +5,12 @@ plugins {
 dependencies {
     api(project(":domain"))
 
-    implementation(libs.liquibase.core)
-    implementation(libs.kotysa.r2dbc)
+    api(libs.liquibase.core)
+    api(libs.kotysa.r2dbc)
     runtimeOnly(libs.postgres.r2dbc)
+    runtimeOnly(libs.r2dbc.pool)
+    runtimeOnly(libs.postgres.jdbc)
+    runtimeOnly(libs.spring.jdbc)
 }
 
 repositories {

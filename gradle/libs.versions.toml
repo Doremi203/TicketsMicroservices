@@ -2,7 +2,10 @@
 spring = "3.3.0"
 jwt = "0.12.5"
 kotysa-r2dbc = "3.2.2"
-postgres-r2dbc = "1.0.5"
+r2dbc-pool = "1.0.1.RELEASE"
+postgres-r2dbc = "1.0.5.RELEASE"
+postgres-jdbc = "42.7.3"
+spring-jdbc = "6.1.8"
 liquibase-core = "4.28.0"
 coroutines = "1.8.1"
 
@@ -12,11 +15,14 @@ coroutines-reactor = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-reacto
 spring-webFlux = { module = "org.springframework.boot:spring-boot-starter-webflux", version.ref = "spring" }
 spring-security = { module = "org.springframework.boot:spring-boot-starter-security", version.ref = "spring" }
 spring-validation = { module = "org.springframework.boot:spring-boot-starter-validation", version.ref = "spring" }
+spring-jdbc = { module = "org.springframework:spring-jdbc", version.ref = "spring-jdbc" }
 jwt-api = { module = "io.jsonwebtoken:jjwt-api", version.ref = "jwt"}
 jwt-impl = { module = "io.jsonwebtoken:jjwt-impl", version.ref = "jwt"}
 jwt-jackson = { module = "io.jsonwebtoken:jjwt-jackson", version.ref = "jwt"}
 kotysa-r2dbc = { module = "org.ufoss.kotysa:kotysa-r2dbc", version.ref = "kotysa-r2dbc" }
+r2dbc-pool = { module = "io.r2dbc:r2dbc-pool", version.ref = "r2dbc-pool" }
 postgres-r2dbc = { module = "org.postgresql:r2dbc-postgresql", version.ref = "postgres-r2dbc"}
+postgres-jdbc = { module = "org.postgresql:postgresql", version.ref = "postgres-jdbc"}
 liquibase-core = { module = "org.liquibase:liquibase-core", version.ref = "liquibase-core" }
 
 [plugins]
