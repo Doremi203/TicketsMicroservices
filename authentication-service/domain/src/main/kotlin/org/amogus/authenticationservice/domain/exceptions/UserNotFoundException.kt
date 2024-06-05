@@ -1,7 +1,6 @@
 package org.amogus.authenticationservice.domain.exceptions
 
 import org.amogus.authenticationservice.domain.types.Email
-import org.amogus.authenticationservice.domain.types.UserId
 
 class UserNotFoundException : NotFoundException {
     constructor(email: Email) : this(email, null)

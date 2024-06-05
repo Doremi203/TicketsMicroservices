@@ -1,7 +1,5 @@
 package org.amogus.authenticationservice.domain.exceptions
 
-import org.amogus.authenticationservice.domain.types.UserId
-
 sealed class NotFoundException : RuntimeException {
     constructor(message: String?) : super(message)
     constructor(message: String?, cause: Throwable?) : super(message, cause)
