@@ -1,4 +1,4 @@
-package org.amogus.authenticationservice.api.models
+package org.amogus.authenticationservice.bll.models
 
 import org.amogus.authenticationservice.domain.models.User
 import org.springframework.security.core.GrantedAuthority

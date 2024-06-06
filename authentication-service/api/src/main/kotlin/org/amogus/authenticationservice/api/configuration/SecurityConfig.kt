@@ -16,6 +16,7 @@ class SecurityConfig {
             authorizeExchange {
                 authorize(anyExchange, permitAll)
             }
+            csrf { disable() }
             httpBasic {  }
         }
     }

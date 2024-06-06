@@ -9,12 +9,12 @@ import org.ufoss.kotysa.PostgresqlR2dbcSqlClient
 class PostgresUserRepository(
     private val dbClient: PostgresqlR2dbcSqlClient
 ) : UserRepository {
-    override suspend fun add(users: List<UserEntityV1>): List<Int> {
-        return (dbClient insertAndReturn users).map { it.id }
+    override suspend fun add(user: UserEntityV1): Int {
+        return (dbClient insertAndReturn user).id
     }
 
     override suspend fun getByEmail(email: Email): UserEntityV1? {
         return (dbClient selectFrom UsersTable
-                    where UsersTable.email eq email.value).fetchFirst()
+                    where UsersTable.email eq email.value).fetchOneOrNull()
     }
 }

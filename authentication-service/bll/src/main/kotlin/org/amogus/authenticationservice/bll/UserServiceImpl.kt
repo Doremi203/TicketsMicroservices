@@ -1,16 +1,18 @@
 package org.amogus.authenticationservice.bll
 
+import org.amogus.authenticationservice.domain.entities.UserEntityV1
 import org.amogus.authenticationservice.domain.exceptions.UserNotFoundException
 import org.amogus.authenticationservice.domain.interfaces.repositories.UserRepository
 import org.amogus.authenticationservice.domain.interfaces.services.UserService
 import org.amogus.authenticationservice.domain.models.User
 import org.amogus.authenticationservice.domain.types.Email
+import org.amogus.authenticationservice.domain.types.UserId
 
 class UserServiceImpl(
     private val userRepository: UserRepository
 ) : UserService {
-    override suspend fun add(user: User): Int {
-        TODO("Not yet implemented")
+    override suspend fun add(user: User): UserId {
+        return UserId(userRepository.add(UserEntityV1(user)))
     }
 
     override suspend fun getByEmail(email: Email): User {

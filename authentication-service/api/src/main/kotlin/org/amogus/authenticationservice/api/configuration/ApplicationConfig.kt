@@ -4,11 +4,13 @@ import io.r2dbc.spi.ConnectionFactories
 import io.r2dbc.spi.ConnectionFactory
 import io.r2dbc.spi.ConnectionFactoryOptions.*
 import kotlinx.coroutines.reactor.mono
-import org.amogus.authenticationservice.api.models.UserDetailsImpl
 import org.amogus.authenticationservice.bll.AuthenticationServiceImpl
 import org.amogus.authenticationservice.bll.JwtServiceImpl
 import org.amogus.authenticationservice.bll.UserServiceImpl
+import org.amogus.authenticationservice.bll.models.UserDetailsImpl
 import org.amogus.authenticationservice.data.UsersTable
+import org.amogus.authenticationservice.data.repositories.PostgresUserRepository
+import org.amogus.authenticationservice.domain.interfaces.repositories.UserRepository
 import org.amogus.authenticationservice.domain.interfaces.services.AuthenticationService
 import org.amogus.authenticationservice.domain.interfaces.services.JwtService
 import org.amogus.authenticationservice.domain.interfaces.services.UserService
@@ -50,11 +52,18 @@ class ApplicationConfig(
     }
 
     @Bean
-    fun userService(): UserService = UserServiceImpl()
+    fun userRepository(): UserRepository = PostgresUserRepository(dbClient())
+
+    @Bean
+    fun userService(): UserService = UserServiceImpl(userRepository())
 
     @Bean
     fun authenticationManager(): ReactiveAuthenticationManager =
-        UserDetailsRepositoryReactiveAuthenticationManager(userDetailsService())
+        UserDetailsRepositoryReactiveAuthenticationManager(userDetailsService()).also {
+            it.setPasswordEncoder(
+                passwordEncoder()
+            )
+        }
 
     @Bean
     fun authenticationService(): AuthenticationService =
