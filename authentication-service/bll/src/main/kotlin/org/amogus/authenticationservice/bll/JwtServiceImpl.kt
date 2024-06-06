@@ -9,6 +9,7 @@ import org.amogus.authenticationservice.bll.exceptions.IllegalJwtTokenException
 import org.amogus.authenticationservice.domain.interfaces.services.JwtService
 import org.amogus.authenticationservice.domain.models.User
 import org.amogus.authenticationservice.domain.types.Email
+import org.amogus.authenticationservice.domain.types.JwtToken
 import java.util.*
 import javax.crypto.SecretKey
 
@@ -18,41 +19,50 @@ class JwtServiceImpl(
 ) : JwtService {
     private val expirationTimeInMillis = 1000 * 60 * expirationTimeInMinutes
 
-    override fun isTokenValid(jwtToken: String, user: User): Boolean {
+    override fun isTokenValid(jwtToken: JwtToken, user: User): Boolean {
         val email = extractEmail(jwtToken)
         return email == user.email
     }
 
-    override fun generateToken(user: User): String {
+    override fun extractTokenFromHeader(header: String): JwtToken {
+        require(header.startsWith("Bearer ")) { "Authorization header must start with 'Bearer '" }
+
+        val token = header.replace("Bearer ", "")
+        return JwtToken(token)
+    }
+
+    override fun generateToken(user: User): JwtToken {
         return generateToken(HashMap(), user)
     }
 
-    override fun generateToken(extraClaims: Map<String, Any>, user: User): String {
+    override fun generateToken(extraClaims: Map<String, Any>, user: User): JwtToken {
         val time = System.currentTimeMillis()
-        return Jwts
-            .builder()
-            .claims(extraClaims)
-            .subject(user.email.value)
-            .issuedAt(Date(time))
-            .expiration(Date(time + expirationTimeInMillis))
-            .signWith(getSecretKey(), Jwts.SIG.HS256)
-            .compact()
+        return JwtToken(
+            Jwts
+                .builder()
+                .claims(extraClaims)
+                .subject(user.email.value)
+                .issuedAt(Date(time))
+                .expiration(Date(time + expirationTimeInMillis))
+                .signWith(getSecretKey(), Jwts.SIG.HS256)
+                .compact()
+        )
     }
 
-    override fun extractEmail(jwtToken: String) = Email(extractClaim(jwtToken, Claims::getSubject))
+    override fun extractEmail(jwtToken: JwtToken) = Email(extractClaim(jwtToken, Claims::getSubject))
 
-    private fun <T> extractClaim(jwtToken: String, claimsResolver: (Claims) -> T): T {
+    private fun <T> extractClaim(jwtToken: JwtToken, claimsResolver: (Claims) -> T): T {
         val claims = extractClaims(jwtToken)
         return claimsResolver(claims)
     }
 
-    private fun extractClaims(jwtToken: String): Claims {
+    private fun extractClaims(jwtToken: JwtToken): Claims {
         return try {
             Jwts
                 .parser()
                 .verifyWith(getSecretKey())
                 .build()
-                .parseSignedClaims(jwtToken)
+                .parseSignedClaims(jwtToken.value)
                 .payload
         } catch (e: ExpiredJwtException) {
             throw IllegalJwtTokenException("JWT token has expired")

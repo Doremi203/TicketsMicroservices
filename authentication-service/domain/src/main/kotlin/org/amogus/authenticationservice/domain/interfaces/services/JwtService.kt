@@ -2,10 +2,12 @@ package org.amogus.authenticationservice.domain.interfaces.services
 
 import org.amogus.authenticationservice.domain.models.User
 import org.amogus.authenticationservice.domain.types.Email
+import org.amogus.authenticationservice.domain.types.JwtToken
 
 interface JwtService {
-    fun isTokenValid(jwtToken: String, user: User): Boolean
-    fun generateToken(user: User): String
-    fun generateToken(extraClaims: Map<String, Any>, user: User): String
-    fun extractEmail(jwtToken: String): Email
+    fun isTokenValid(jwtToken: JwtToken, user: User): Boolean
+    fun extractTokenFromHeader(header: String): JwtToken
+    fun generateToken(user: User): JwtToken
+    fun generateToken(extraClaims: Map<String, Any>, user: User): JwtToken
+    fun extractEmail(jwtToken: JwtToken): Email
 }
