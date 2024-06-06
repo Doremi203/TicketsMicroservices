@@ -5,10 +5,7 @@ import org.amogus.authenticationservice.bll.models.UserDetailsImpl
 import org.amogus.authenticationservice.domain.interfaces.services.AuthenticationService
 import org.amogus.authenticationservice.domain.interfaces.services.JwtService
 import org.amogus.authenticationservice.domain.interfaces.services.UserService
-import org.amogus.authenticationservice.domain.models.AuthenticationResult
-import org.amogus.authenticationservice.domain.models.Credentials
-import org.amogus.authenticationservice.domain.models.RegistrationData
-import org.amogus.authenticationservice.domain.models.User
+import org.amogus.authenticationservice.domain.models.*
 import org.amogus.authenticationservice.domain.types.Password
 import org.amogus.authenticationservice.domain.types.UserCreationTime
 import org.springframework.security.authentication.ReactiveAuthenticationManager
@@ -49,6 +46,17 @@ class AuthenticationServiceImpl(
         val jwtToken = jwtService.generateToken((auth.principal as UserDetailsImpl).user)
 
         return AuthenticationResult(jwtToken)
+    }
+
+    override suspend fun getUserInfo(token: String): UserInfo {
+        val email = jwtService.extractEmail(token)
+        val user = userService.getByEmail(email)
+
+        return UserInfo(
+            nickname = user.nickname,
+            email = user.email,
+            createdAt = user.created
+        )
     }
 
 }
