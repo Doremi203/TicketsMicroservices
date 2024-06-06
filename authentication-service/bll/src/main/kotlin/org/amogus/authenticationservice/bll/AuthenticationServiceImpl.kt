@@ -6,6 +6,7 @@ import org.amogus.authenticationservice.domain.interfaces.services.Authenticatio
 import org.amogus.authenticationservice.domain.interfaces.services.JwtService
 import org.amogus.authenticationservice.domain.interfaces.services.UserService
 import org.amogus.authenticationservice.domain.models.*
+import org.amogus.authenticationservice.domain.types.JwtToken
 import org.amogus.authenticationservice.domain.types.Password
 import org.amogus.authenticationservice.domain.types.UserCreationTime
 import org.springframework.security.authentication.ReactiveAuthenticationManager
@@ -32,7 +33,7 @@ class AuthenticationServiceImpl(
             user.copy(id = userId)
         )
 
-        return AuthenticationResult(jwtToken)
+        return AuthenticationResult(jwtToken.value)
     }
 
     override suspend fun login(credentials: Credentials): AuthenticationResult {
@@ -45,10 +46,10 @@ class AuthenticationServiceImpl(
 
         val jwtToken = jwtService.generateToken((auth.principal as UserDetailsImpl).user)
 
-        return AuthenticationResult(jwtToken)
+        return AuthenticationResult(jwtToken.value)
     }
 
-    override suspend fun getUserInfo(token: String): UserInfo {
+    override suspend fun getUserInfo(token: JwtToken): UserInfo {
         val email = jwtService.extractEmail(token)
         val user = userService.getByEmail(email)
 

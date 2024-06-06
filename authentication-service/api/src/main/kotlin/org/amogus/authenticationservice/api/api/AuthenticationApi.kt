@@ -9,5 +9,5 @@ import org.springframework.http.ResponseEntity
 interface AuthenticationApi {
     suspend fun register(request: RegistrationRequest): ResponseEntity<AuthenticationResponse>
     suspend fun login(request: AuthenticationRequest): ResponseEntity<AuthenticationResponse>
-    suspend fun getUserInfo(token: String): ResponseEntity<UserInfoResponse>
+    suspend fun getUserInfo(authHeader: String): ResponseEntity<UserInfoResponse>
 }
