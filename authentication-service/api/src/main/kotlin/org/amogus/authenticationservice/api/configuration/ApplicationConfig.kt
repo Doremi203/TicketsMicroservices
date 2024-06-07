@@ -29,9 +29,10 @@ import org.ufoss.kotysa.tables
 
 
 @Configuration
-@EnableConfigurationProperties(DBSettings::class)
+@EnableConfigurationProperties(DBSettings::class, JwtSettings::class)
 class ApplicationConfig(
     private val dbSettings: DBSettings,
+    private val jwtSettings: JwtSettings
 ) {
     @Bean
     fun connectionFactory(): ConnectionFactory = ConnectionFactories.get(
@@ -89,7 +90,7 @@ class ApplicationConfig(
 
     @Bean
     fun jwtService(): JwtService = JwtServiceImpl(
-        "5b9763e66a963ee6b756961c710e8f1b3a637dd6dce5e18e01317a360e186997",
-        15
+        jwtSettings.secret,
+        jwtSettings.expirationInMinutes
     )
 }

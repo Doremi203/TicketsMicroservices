@@ -10,3 +10,6 @@ spring:
     url: jdbc:postgresql://${db.host}:${db.port}/${db.database}
     user: ${db.user}
     password: ${db.password}
+jwt:
+  expirationInMinutes: 5
+  secret: ${AUTH_SERVICE_JWT_SECRET}
