@@ -23,7 +23,11 @@ class AuthenticationController(
     private val jwtService: JwtService
 ) : AuthenticationApi {
     @PostMapping("/register")
-    override suspend fun register(@Valid @RequestBody request: RegistrationRequest): ResponseEntity<AuthenticationResponse> {
+    override suspend fun register(
+        @Valid
+        @RequestBody
+        request: RegistrationRequest
+    ): ResponseEntity<AuthenticationResponse> {
         return ResponseEntity.ok(
             AuthenticationResponse(
                 authenticationService.register(
@@ -38,7 +42,11 @@ class AuthenticationController(
     }
 
     @PostMapping("/login")
-    override suspend fun login(@Valid @RequestBody request: AuthenticationRequest): ResponseEntity<AuthenticationResponse> {
+    override suspend fun login(
+        @Valid
+        @RequestBody
+        request: AuthenticationRequest
+    ): ResponseEntity<AuthenticationResponse> {
         return ResponseEntity.ok(
             AuthenticationResponse(
                 authenticationService.login(
@@ -52,7 +60,10 @@ class AuthenticationController(
     }
 
     @GetMapping("/user-info")
-    override suspend fun getUserInfo(@RequestHeader("Authorization") authHeader: String): ResponseEntity<UserInfoResponse> {
+    override suspend fun getUserInfo(
+        @RequestHeader("Authorization")
+        authHeader: String
+    ): ResponseEntity<UserInfoResponse> {
         val userInfo = authenticationService.getUserInfo(jwtService.extractTokenFromHeader(authHeader))
 
         return ResponseEntity.ok(
