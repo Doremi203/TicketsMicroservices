@@ -5,6 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+
   authentication-service:
     container_name: authentication-service
     build:
@@ -17,6 +18,7 @@ services:
     depends_on:
       authentication-service-db:
         condition: service_healthy
+
   authentication-service-db:
     image: postgres
     container_name: authentication-service-db
@@ -28,6 +30,22 @@ services:
       - "5432:5432"
     healthcheck:
       test: [ "CMD", "pg_isready", "-U", "${AUTH_SERVICE_DB_USER}" ]
+      start_period: 10s
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  tickets-service-db:
+    image: postgres
+    container_name: tickets-service-db
+    environment:
+      POSTGRES_USER: ${TICKETS_SERVICE_DB_USER}
+      POSTGRES_PASSWORD: ${TICKETS_SERVICE_DB_PASSWORD}
+      POSTGRES_DB: ${TICKETS_SERVICE_DB_NAME}
+    ports:
+      - "15432:5432"
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "${TICKETS_SERVICE_DB_USER}" ]
       start_period: 10s
       interval: 10s
       timeout: 5s
