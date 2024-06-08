@@ -2,6 +2,8 @@ package org.amogus.authenticationservice.bll
 
 import kotlinx.coroutines.reactor.awaitSingle
 import org.amogus.authenticationservice.bll.models.UserDetailsImpl
+import org.amogus.authenticationservice.domain.exceptions.InvalidCredentialsException
+import org.amogus.authenticationservice.domain.exceptions.UserNotFoundException
 import org.amogus.authenticationservice.domain.interfaces.services.AuthenticationService
 import org.amogus.authenticationservice.domain.interfaces.services.JwtService
 import org.amogus.authenticationservice.domain.interfaces.services.UserService
@@ -9,6 +11,7 @@ import org.amogus.authenticationservice.domain.models.*
 import org.amogus.authenticationservice.domain.types.JwtToken
 import org.amogus.authenticationservice.domain.types.Password
 import org.amogus.authenticationservice.domain.types.UserCreationTime
+import org.springframework.security.authentication.BadCredentialsException
 import org.springframework.security.authentication.ReactiveAuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.crypto.password.PasswordEncoder
@@ -37,12 +40,18 @@ class AuthenticationServiceImpl(
     }
 
     override suspend fun login(credentials: Credentials): AuthenticationResult {
-        val auth = authenticationManager.authenticate(
-            UsernamePasswordAuthenticationToken(
-                credentials.email.value,
-                credentials.password.value
-            )
-        ).awaitSingle()
+        val auth = try {
+            authenticationManager.authenticate(
+                UsernamePasswordAuthenticationToken(
+                    credentials.email.value,
+                    credentials.password.value
+                )
+            ).awaitSingle()
+        } catch (e: UserNotFoundException) {
+            throw InvalidCredentialsException(e)
+        } catch (e: BadCredentialsException) {
+            throw InvalidCredentialsException(e)
+        }
 
         val jwtToken = jwtService.generateToken((auth.principal as UserDetailsImpl).user)
 
