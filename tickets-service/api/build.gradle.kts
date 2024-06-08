@@ -7,6 +7,8 @@ plugins {
 }
 
 dependencies {
+    api(project(":bll"))
+
     implementation(libs.spring.openApi)
     implementation(libs.jackson.module.kotlin)
     implementation(libs.spring.webFlux)

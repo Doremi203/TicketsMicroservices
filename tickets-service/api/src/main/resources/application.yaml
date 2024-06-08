@@ -1,0 +1,12 @@
+db:
+  host: ${TICKETS_SERVICE_DB_HOST}
+  port: ${TICKETS_SERVICE_DB_PORT}
+  database: ${TICKETS_SERVICE_DB_NAME}
+  user: ${TICKETS_SERVICE_DB_USER}
+  password: ${TICKETS_SERVICE_DB_PASSWORD}
+spring:
+  liquibase:
+    change-log: db.changelog/db.changelog-master.yaml
+    url: jdbc:postgresql://${db.host}:${db.port}/${db.database}
+    user: ${db.user}
+    password: ${db.password}
