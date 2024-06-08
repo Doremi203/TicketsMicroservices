@@ -13,3 +13,5 @@ spring:
 jwt:
   expirationInMinutes: 5
   secret: ${AUTH_SERVICE_JWT_SECRET}
+springdoc:
+  default-produces-media-type: application/json
