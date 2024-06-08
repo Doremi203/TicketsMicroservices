@@ -3,6 +3,7 @@ package org.amogus.ticketsservice.api.configuration
 import io.r2dbc.spi.ConnectionFactories
 import io.r2dbc.spi.ConnectionFactory
 import io.r2dbc.spi.ConnectionFactoryOptions.*
+import org.amogus.ticketsservice.data.OrdersTable
 import org.amogus.ticketsservice.data.StationsTable
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
@@ -32,6 +33,6 @@ class ApplicationConfig(
 
     @Bean
     fun dbClient(): PostgresqlR2dbcSqlClient {
-        return connectionFactory().coSqlClient(tables().postgresql(StationsTable))
+        return connectionFactory().coSqlClient(tables().postgresql(StationsTable, OrdersTable))
     }
 }
