@@ -7,19 +7,20 @@ plugins {
 }
 
 dependencies {
-    api(project(":bll"))
-
     implementation(libs.spring.openApi)
     implementation(libs.jackson.module.kotlin)
     implementation(libs.spring.webFlux)
-    implementation(libs.spring.security)
     implementation(libs.spring.validation)
     implementation(libs.coroutines.core)
     implementation(libs.coroutines.reactor)
+    //implementation("org.jetbrains.kotlin:kotlin-reflect")
+    //testImplementation("org.springframework.boot:spring-boot-starter-test")
+    //testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
+    //testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 application {
-    mainClass = "org.amogus.authenticationservice.api.ApplicationKt"
+    mainClass = "org.amogus.ticketsservice.api.ApplicationKt"
 }
 
 kotlin {
@@ -29,3 +30,6 @@ kotlin {
     }
 }
 
+tasks.withType<Test> {
+    useJUnitPlatform()
+}

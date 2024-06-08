@@ -12,7 +12,3 @@ dependencies {
     runtimeOnly(libs.postgres.jdbc)
     runtimeOnly(libs.spring.jdbc)
 }
-
-repositories {
-    mavenCentral()
-}

@@ -12,7 +12,3 @@ dependencies {
     runtimeOnly(libs.jwt.impl)
     runtimeOnly(libs.jwt.jackson)
 }
-
-repositories {
-    mavenCentral()
-}
