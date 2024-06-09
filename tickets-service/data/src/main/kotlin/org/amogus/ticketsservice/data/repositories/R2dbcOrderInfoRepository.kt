@@ -3,7 +3,7 @@ package org.amogus.ticketsservice.data.repositories
 import kotlinx.coroutines.flow.toList
 import org.amogus.ticketsservice.data.OrdersTable
 import org.amogus.ticketsservice.data.StationsTable
-import org.amogus.ticketsservice.domain.interfaces.OrderInfoRepository
+import org.amogus.ticketsservice.domain.interfaces.repositories.OrderInfoRepository
 import org.amogus.ticketsservice.domain.models.OrderInfo
 import org.amogus.ticketsservice.domain.types.*
 import org.ufoss.kotysa.R2dbcSqlClient
@@ -12,13 +12,14 @@ import org.ufoss.kotysa.get
 class R2dbcOrderInfoRepository(
     private val dbClient: R2dbcSqlClient
 ) : OrderInfoRepository {
-    override suspend fun getById(id: OrderId): OrderInfo? {
+    override suspend fun getByUserId(id: OrderId, userId: UserId): OrderInfo? {
         return (selectOrderInfo()
-                where OrdersTable.id eq id.value)
+                where OrdersTable.id eq id.value
+                and OrdersTable.userId eq userId.value)
             .fetchOneOrNull()
     }
 
-    override suspend fun getByUserId(userId: UserId): List<OrderInfo> {
+    override suspend fun getAllByUserId(userId: UserId): List<OrderInfo> {
         return (selectOrderInfo()
                 where OrdersTable.userId eq userId.value)
             .fetchAll()
@@ -28,7 +29,6 @@ class R2dbcOrderInfoRepository(
     private fun selectOrderInfo() = (dbClient selectAndBuild {
         OrderInfo(
             id = OrderId(it[OrdersTable.id]!!),
-            userId = UserId(it[OrdersTable.userId]!!),
             fromStationName = StationName(it[StationsTable["from"].name]!!),
             toStationName = StationName(it[StationsTable["to"].name]!!),
             status = OrderStatus.fromInt(it[OrdersTable.status]!!),

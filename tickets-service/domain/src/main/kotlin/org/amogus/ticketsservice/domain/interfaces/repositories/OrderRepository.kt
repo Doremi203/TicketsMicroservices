@@ -1,4 +1,4 @@
-package org.amogus.ticketsservice.domain.interfaces
+package org.amogus.ticketsservice.domain.interfaces.repositories
 
 import org.amogus.ticketsservice.domain.models.Order
 import org.amogus.ticketsservice.domain.types.OrderId
