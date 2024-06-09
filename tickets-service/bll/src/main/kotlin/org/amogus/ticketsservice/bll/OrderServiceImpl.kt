@@ -17,7 +17,7 @@ class OrderServiceImpl(
     private val orderRepository: OrderRepository,
     private val orderInfoRepository: OrderInfoRepository
 ) : OrderService {
-    override suspend fun createOrder(model: CreateOrderModel): OrderId {
+    override suspend fun create(model: CreateOrderModel): OrderId {
         val order = Order(
             id = OrderId(0),
             userId = model.userId,

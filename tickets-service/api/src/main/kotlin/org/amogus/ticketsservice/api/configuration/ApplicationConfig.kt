@@ -1,38 +1,23 @@
 package org.amogus.ticketsservice.api.configuration
 
-import io.r2dbc.spi.ConnectionFactories
-import io.r2dbc.spi.ConnectionFactory
-import io.r2dbc.spi.ConnectionFactoryOptions.*
-import org.amogus.ticketsservice.data.OrdersTable
-import org.amogus.ticketsservice.data.StationsTable
+import org.amogus.ticketsservice.api.client.rest.api.AuthServiceClient
+import org.amogus.ticketsservice.api.client.rest.services.SpringWebAuthService
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.ufoss.kotysa.PostgresqlR2dbcSqlClient
-import org.ufoss.kotysa.r2dbc.coSqlClient
-import org.ufoss.kotysa.tables
+import org.springframework.web.reactive.function.client.WebClient
 
 
 @Configuration
-@EnableConfigurationProperties(DBSettings::class)
-class ApplicationConfig(
-    private val dbSettings: DBSettings
-) {
+@EnableConfigurationProperties(AuthServiceClientSettings::class)
+class ApplicationConfig {
     @Bean
-    fun connectionFactory(): ConnectionFactory = ConnectionFactories.get(
-        builder()
-            .option(DRIVER, "pool")
-            .option(PROTOCOL, "postgresql")
-            .option(HOST, dbSettings.host)
-            .option(PORT, dbSettings.port)
-            .option(USER, dbSettings.user)
-            .option(PASSWORD, dbSettings.password)
-            .option(DATABASE, dbSettings.database)
+    fun webClient(settings: AuthServiceClientSettings): WebClient {
+        return WebClient.builder()
+            .baseUrl(settings.baseUrl)
             .build()
-    )
+    }
 
     @Bean
-    fun dbClient(): PostgresqlR2dbcSqlClient {
-        return connectionFactory().coSqlClient(tables().postgresql(StationsTable, OrdersTable))
-    }
+    fun authServiceClient(webClient: WebClient): AuthServiceClient = SpringWebAuthService(webClient)
 }

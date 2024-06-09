@@ -2,6 +2,6 @@ package org.amogus.ticketsservice.bll
 
 import java.time.LocalDateTime
 
-interface DateTimeProvider {
+fun interface DateTimeProvider {
     fun now(): LocalDateTime
 }
