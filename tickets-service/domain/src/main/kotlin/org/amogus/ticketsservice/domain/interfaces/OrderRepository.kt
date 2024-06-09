@@ -1,10 +1,12 @@
 package org.amogus.ticketsservice.domain.interfaces
 
-import org.amogus.ticketsservice.domain.entities.OrderEntityV1
+import org.amogus.ticketsservice.domain.modules.Order
+import org.amogus.ticketsservice.domain.types.OrderId
 import org.amogus.ticketsservice.domain.types.OrderStatus
+import org.amogus.ticketsservice.domain.types.UserId
 
 interface OrderRepository {
-    suspend fun createOrder(order: OrderEntityV1): Int
-    suspend fun getByUserId(userId: Int): List<OrderEntityV1>
-    suspend fun getByStatus(status: OrderStatus): List<OrderEntityV1>
+    suspend fun createOrder(order: Order): OrderId
+    suspend fun getByUserId(userId: UserId): List<Order>
+    suspend fun getByStatus(status: OrderStatus): List<Order>
 }
