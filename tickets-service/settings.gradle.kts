@@ -8,4 +8,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "tickets-service"
 
+include("domain")
+include("data")
+include("bll")
 include("api")
