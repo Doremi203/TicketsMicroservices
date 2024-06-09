@@ -9,7 +9,7 @@ import org.amogus.ticketsservice.domain.types.*
 import org.ufoss.kotysa.PostgresqlR2dbcSqlClient
 import org.ufoss.kotysa.get
 
-class PostgresOrderInfoRepository(
+class R2dbcOrderInfoRepository(
     private val dbClient: PostgresqlR2dbcSqlClient
 ) : OrderInfoRepository {
     override suspend fun getByUserId(userId: UserId): List<OrderInfo> {

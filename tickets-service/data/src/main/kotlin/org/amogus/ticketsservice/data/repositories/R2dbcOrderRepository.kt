@@ -10,10 +10,10 @@ import org.amogus.ticketsservice.domain.models.toEntity
 import org.amogus.ticketsservice.domain.types.OrderId
 import org.amogus.ticketsservice.domain.types.OrderStatus
 import org.amogus.ticketsservice.domain.types.UserId
-import org.ufoss.kotysa.PostgresqlR2dbcSqlClient
+import org.ufoss.kotysa.R2dbcSqlClient
 
-class PostgresOrderRepository(
-    private val dbClient: PostgresqlR2dbcSqlClient
+class R2dbcOrderRepository(
+    private val dbClient: R2dbcSqlClient
 ) : OrderRepository {
     override suspend fun createOrder(order: Order): OrderId {
         return OrderId((dbClient insertAndReturn order.toEntity()).id)
