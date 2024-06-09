@@ -6,7 +6,9 @@ import org.amogus.ticketsservice.domain.interfaces.repositories.OrderInfoReposit
 import org.amogus.ticketsservice.domain.interfaces.repositories.OrderRepository
 import org.amogus.ticketsservice.domain.interfaces.services.OrderService
 import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Configuration
 
+@Configuration
 class BllConfig {
     @Bean
     fun orderService(
