@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.toList
 import org.amogus.ticketsservice.data.StationsTable
 import org.amogus.ticketsservice.domain.entities.toStation
-import org.amogus.ticketsservice.domain.interfaces.StationRepository
+import org.amogus.ticketsservice.domain.interfaces.repositories.StationRepository
 import org.amogus.ticketsservice.domain.models.Station
 import org.amogus.ticketsservice.domain.models.toEntity
 import org.amogus.ticketsservice.domain.types.StationId

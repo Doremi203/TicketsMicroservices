@@ -4,7 +4,6 @@ import jakarta.validation.Valid
 import org.amogus.ticketsservice.api.api.OrderApi
 import org.amogus.ticketsservice.api.requests.CreateOrderRequest
 import org.amogus.ticketsservice.api.responses.OrderInfoResponse
-import org.amogus.ticketsservice.domain.interfaces.services.OrderService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping

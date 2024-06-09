@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.toList
 import org.amogus.ticketsservice.data.OrdersTable
 import org.amogus.ticketsservice.domain.entities.toOrder
-import org.amogus.ticketsservice.domain.interfaces.OrderRepository
+import org.amogus.ticketsservice.domain.interfaces.repositories.OrderRepository
 import org.amogus.ticketsservice.domain.models.Order
 import org.amogus.ticketsservice.domain.models.toEntity
 import org.amogus.ticketsservice.domain.types.OrderId
@@ -15,7 +15,7 @@ import org.ufoss.kotysa.R2dbcSqlClient
 class R2dbcOrderRepository(
     private val dbClient: R2dbcSqlClient
 ) : OrderRepository {
-    override suspend fun createOrder(order: Order): OrderId {
+    override suspend fun create(order: Order): OrderId {
         return OrderId((dbClient insertAndReturn order.toEntity()).id)
     }
 
