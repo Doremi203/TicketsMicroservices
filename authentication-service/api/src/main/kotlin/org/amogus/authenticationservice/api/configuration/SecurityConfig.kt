@@ -31,7 +31,7 @@ class SecurityConfig {
             .logout { it.disable() }
             .securityContextRepository(NoOpServerSecurityContextRepository.getInstance())
             .authorizeExchange {
-                it.pathMatchers("/api/auth/user-info").authenticated()
+                it.pathMatchers("/user-info").authenticated()
                 it.anyExchange().permitAll()
             }
             .addFilterAt(jwtAuthenticationFilter, SecurityWebFiltersOrder.AUTHENTICATION)
