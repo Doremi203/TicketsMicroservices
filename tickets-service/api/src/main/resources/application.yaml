@@ -5,6 +5,8 @@ db:
   user: ${TICKETS_SERVICE_DB_USER}
   password: ${TICKETS_SERVICE_DB_PASSWORD}
 spring:
+  webflux:
+    base-path: /tickets-api
   liquibase:
     change-log: db.changelog/db.changelog-master.yaml
     url: jdbc:postgresql://${db.host}:${db.port}/${db.database}
@@ -13,4 +15,4 @@ spring:
 springdoc:
   default-produces-media-type: application/json
 auth-service-client:
-  base-url: hjkf
+  base-url: auth-service/auth-api

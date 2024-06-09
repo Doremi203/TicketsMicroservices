@@ -1,7 +1,7 @@
 package org.amogus.ticketsservice.api.client.rest.api
 
-import org.amogus.ticketsservice.api.client.rest.models.UserInfo
+import org.amogus.ticketsservice.domain.types.UserId
 
 interface AuthServiceClient {
-    suspend fun getAuthenticatedUserInfo(token: String): UserInfo
+    suspend fun getAuthenticatedUserId(token: String): UserId
 }
