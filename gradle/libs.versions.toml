@@ -1,12 +1,12 @@
 [versions]
 spring = "3.3.0"
+spring-jdbc = "6.1.8"
+spring-openApi = "2.5.0"
 jwt = "0.12.5"
 kotysa-r2dbc = "3.2.2"
 r2dbc-pool = "1.0.1.RELEASE"
 postgres-r2dbc = "1.0.5.RELEASE"
 postgres-jdbc = "42.7.3"
-spring-jdbc = "6.1.8"
-spring-openApi = "2.5.0"
 liquibase-core = "4.28.0"
 coroutines = "1.8.1"
 jackson-module-kotlin = "2.17.1"
@@ -28,6 +28,7 @@ r2dbc-pool = { module = "io.r2dbc:r2dbc-pool", version.ref = "r2dbc-pool" }
 postgres-r2dbc = { module = "org.postgresql:r2dbc-postgresql", version.ref = "postgres-r2dbc"}
 postgres-jdbc = { module = "org.postgresql:postgresql", version.ref = "postgres-jdbc"}
 liquibase-core = { module = "org.liquibase:liquibase-core", version.ref = "liquibase-core" }
+
 
 [plugins]
 spring-boot = { id = "org.springframework.boot", version = "3.3.0" }
