@@ -1,5 +1,7 @@
 package org.amogus.ticketsservice.bll
 
+import org.amogus.ticketsservice.domain.exceptions.OrderNotFoundException
+import org.amogus.ticketsservice.domain.interfaces.repositories.OrderInfoRepository
 import org.amogus.ticketsservice.domain.interfaces.repositories.OrderRepository
 import org.amogus.ticketsservice.domain.interfaces.services.OrderService
 import org.amogus.ticketsservice.domain.models.CreateOrderModel
@@ -12,7 +14,8 @@ import org.amogus.ticketsservice.domain.types.UserId
 
 class OrderServiceImpl(
     private val dateTimeProvider: DateTimeProvider,
-    private val orderRepository: OrderRepository
+    private val orderRepository: OrderRepository,
+    private val orderInfoRepository: OrderInfoRepository
 ) : OrderService {
     override suspend fun createOrder(model: CreateOrderModel): OrderId {
         val order = Order(
@@ -28,6 +31,9 @@ class OrderServiceImpl(
     }
 
     override suspend fun getOrderInfo(id: OrderId, userId: UserId): OrderInfo {
-        TODO("Not yet implemented")
+        val orderInfo = orderInfoRepository.getByUserId(id, userId)
+            ?: throw OrderNotFoundException(id, userId)
+
+        return orderInfo
     }
 }
