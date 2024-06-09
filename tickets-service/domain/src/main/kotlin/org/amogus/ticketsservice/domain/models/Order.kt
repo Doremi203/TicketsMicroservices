@@ -1,4 +1,4 @@
-package org.amogus.ticketsservice.domain.modules
+package org.amogus.ticketsservice.domain.models
 
 import org.amogus.ticketsservice.domain.entities.OrderEntityV1
 import org.amogus.ticketsservice.domain.types.*

@@ -1,6 +1,6 @@
 package org.amogus.ticketsservice.domain.interfaces
 
-import org.amogus.ticketsservice.domain.modules.Order
+import org.amogus.ticketsservice.domain.models.Order
 import org.amogus.ticketsservice.domain.types.OrderId
 import org.amogus.ticketsservice.domain.types.OrderStatus
 import org.amogus.ticketsservice.domain.types.UserId

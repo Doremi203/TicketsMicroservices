@@ -1,6 +1,6 @@
 package org.amogus.ticketsservice.domain.entities
 
-import org.amogus.ticketsservice.domain.modules.Order
+import org.amogus.ticketsservice.domain.models.Order
 import org.amogus.ticketsservice.domain.types.*
 import java.time.LocalDateTime
 

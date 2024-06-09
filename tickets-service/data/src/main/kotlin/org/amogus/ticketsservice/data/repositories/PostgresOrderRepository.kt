@@ -5,8 +5,8 @@ import kotlinx.coroutines.flow.toList
 import org.amogus.ticketsservice.data.OrdersTable
 import org.amogus.ticketsservice.domain.entities.toOrder
 import org.amogus.ticketsservice.domain.interfaces.OrderRepository
-import org.amogus.ticketsservice.domain.modules.Order
-import org.amogus.ticketsservice.domain.modules.toEntity
+import org.amogus.ticketsservice.domain.models.Order
+import org.amogus.ticketsservice.domain.models.toEntity
 import org.amogus.ticketsservice.domain.types.OrderId
 import org.amogus.ticketsservice.domain.types.OrderStatus
 import org.amogus.ticketsservice.domain.types.UserId
