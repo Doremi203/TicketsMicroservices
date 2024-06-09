@@ -1,4 +1,5 @@
 plugins {
+    alias(libs.plugins.jib)
     alias(libs.plugins.jvm)
     alias(libs.plugins.spring.plugin)
     alias(libs.plugins.spring.boot)
@@ -16,6 +17,28 @@ dependencies {
     implementation(libs.spring.validation)
     implementation(libs.coroutines.core)
     implementation(libs.coroutines.reactor)
+}
+
+jib {
+    from {
+        image = "openjdk:21"
+        platforms {
+            platform {
+                architecture = "amd64"
+                os = "linux"
+            }
+            platform {
+                architecture = "arm64"
+                os = "linux"
+            }
+        }
+    }
+    to {
+        image = "authentication-service"
+    }
+    container {
+        mainClass = "org.amogus.authenticationservice.api.ApplicationKt"
+    }
 }
 
 application {

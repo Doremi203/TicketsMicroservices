@@ -5,6 +5,8 @@ db:
   user: ${AUTH_SERVICE_DB_USER}
   password: ${AUTH_SERVICE_DB_PASSWORD}
 spring:
+  webflux:
+    base-path: /auth-api
   liquibase:
     change-log: db.changelog/db.changelog-master.yaml
     url: jdbc:postgresql://${db.host}:${db.port}/${db.database}
