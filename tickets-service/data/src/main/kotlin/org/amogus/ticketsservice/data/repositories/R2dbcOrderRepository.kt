@@ -15,7 +15,7 @@ import org.ufoss.kotysa.R2dbcSqlClient
 class R2dbcOrderRepository(
     private val dbClient: R2dbcSqlClient
 ) : OrderRepository {
-    override suspend fun createOrder(order: Order): OrderId {
+    override suspend fun create(order: Order): OrderId {
         return OrderId((dbClient insertAndReturn order.toEntity()).id)
     }
 
