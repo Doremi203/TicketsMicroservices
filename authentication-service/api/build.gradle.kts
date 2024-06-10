@@ -15,6 +15,7 @@ dependencies {
     implementation(libs.spring.webFlux)
     implementation(libs.spring.security)
     implementation(libs.spring.validation)
+    implementation(libs.passay)
     implementation(libs.coroutines.core)
     implementation(libs.coroutines.reactor)
 }

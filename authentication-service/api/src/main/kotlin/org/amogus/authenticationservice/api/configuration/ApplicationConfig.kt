@@ -4,6 +4,7 @@ import io.r2dbc.spi.ConnectionFactories
 import io.r2dbc.spi.ConnectionFactory
 import io.r2dbc.spi.ConnectionFactoryOptions.*
 import kotlinx.coroutines.reactor.mono
+import org.amogus.authenticationservice.api.configuration.properties.PasswordProperties
 import org.amogus.authenticationservice.bll.AuthenticationServiceImpl
 import org.amogus.authenticationservice.bll.JwtServiceImpl
 import org.amogus.authenticationservice.bll.UserServiceImpl
@@ -29,7 +30,12 @@ import org.ufoss.kotysa.tables
 
 
 @Configuration
-@EnableConfigurationProperties(DBSettings::class, JwtSettings::class, ServerSettings::class)
+@EnableConfigurationProperties(
+    DBSettings::class,
+    JwtSettings::class,
+    ServerSettings::class,
+    PasswordProperties::class
+)
 class ApplicationConfig(
     private val dbSettings: DBSettings,
     private val jwtSettings: JwtSettings

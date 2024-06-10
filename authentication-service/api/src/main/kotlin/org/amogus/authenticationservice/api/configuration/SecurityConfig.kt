@@ -43,6 +43,7 @@ class SecurityConfig {
             .exceptionHandling {
                 it.authenticationEntryPoint { exchange, ex ->
                     exchange.response.statusCode = HttpStatus.UNAUTHORIZED
+                    println("fafasf")
                     val problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.UNAUTHORIZED, ex.message)
                     problemDetail.type = URI.create("https://datatracker.ietf.org/doc/html/rfc9110#section-15.5.2")
                     problemDetail.instance = URI.create(exchange.request.path.value())
