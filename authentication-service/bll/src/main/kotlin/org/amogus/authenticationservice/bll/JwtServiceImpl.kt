@@ -19,11 +19,6 @@ class JwtServiceImpl(
 ) : JwtService {
     private val expirationTimeInMillis = 1000 * 60 * expirationTimeInMinutes
 
-    override fun isTokenValid(jwtToken: JwtToken, user: User): Boolean {
-        val email = extractEmail(jwtToken)
-        return email == user.email
-    }
-
     override fun extractTokenFromHeader(header: String): JwtToken {
         require(header.startsWith("Bearer ")) { "Authorization header must start with 'Bearer '" }
 
