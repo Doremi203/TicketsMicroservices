@@ -1,0 +1,41 @@
+[versions]
+spring = "3.3.0"
+spring-jdbc = "6.1.8"
+spring-openApi = "2.5.0"
+jwt = "0.12.5"
+kotysa-r2dbc = "3.2.2"
+r2dbc-pool = "1.0.1.RELEASE"
+postgres-r2dbc = "1.0.5.RELEASE"
+postgres-jdbc = "42.7.3"
+liquibase-core = "4.28.0"
+coroutines = "1.8.1"
+jackson-module-kotlin = "2.17.1"
+kotlin-reflect = "2.0.0"
+
+[libraries]
+jackson-module-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin", version.ref = "jackson-module-kotlin" }
+coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+coroutines-reactor = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-reactor", version.ref = "coroutines" }
+kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin-reflect" }
+spring-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator", version.ref = "spring" }
+spring-webFlux = { module = "org.springframework.boot:spring-boot-starter-webflux", version.ref = "spring" }
+spring-security = { module = "org.springframework.boot:spring-boot-starter-security", version.ref = "spring" }
+spring-validation = { module = "org.springframework.boot:spring-boot-starter-validation", version.ref = "spring" }
+spring-jdbc = { module = "org.springframework:spring-jdbc", version.ref = "spring-jdbc" }
+spring-openApi = { module = "org.springdoc:springdoc-openapi-starter-webflux-ui", version.ref = "spring-openApi" }
+jwt-api = { module = "io.jsonwebtoken:jjwt-api", version.ref = "jwt"}
+jwt-impl = { module = "io.jsonwebtoken:jjwt-impl", version.ref = "jwt"}
+jwt-jackson = { module = "io.jsonwebtoken:jjwt-jackson", version.ref = "jwt"}
+kotysa-r2dbc = { module = "org.ufoss.kotysa:kotysa-r2dbc", version.ref = "kotysa-r2dbc" }
+r2dbc-pool = { module = "io.r2dbc:r2dbc-pool", version.ref = "r2dbc-pool" }
+postgres-r2dbc = { module = "org.postgresql:r2dbc-postgresql", version.ref = "postgres-r2dbc"}
+postgres-jdbc = { module = "org.postgresql:postgresql", version.ref = "postgres-jdbc"}
+liquibase-core = { module = "org.liquibase:liquibase-core", version.ref = "liquibase-core" }
+
+
+[plugins]
+jib = { id = "com.google.cloud.tools.jib", version = "3.4.3" }
+spring-boot = { id = "org.springframework.boot", version = "3.3.0" }
+spring-dependencyManagement = { id = "io.spring.dependency-management", version = "1.1.5" }
+jvm = { id = "org.jetbrains.kotlin.jvm", version = "1.9.22" }
+spring-plugin = { id = "org.jetbrains.kotlin.plugin.spring", version = "1.9.24" }
