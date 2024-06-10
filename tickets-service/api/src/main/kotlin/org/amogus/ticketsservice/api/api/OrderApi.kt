@@ -83,5 +83,8 @@ interface OrderApi {
             ),
         ]
     )
-    suspend fun getOrderInfo(orderId: Int): ResponseEntity<OrderInfoResponse>
+    suspend fun getOrderInfo(
+        orderId: Int,
+        exchange: ServerWebExchange
+    ): ResponseEntity<OrderInfoResponse>
 }

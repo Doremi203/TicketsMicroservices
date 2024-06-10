@@ -7,6 +7,7 @@ import org.amogus.ticketsservice.api.responses.OrderInfoResponse
 import org.amogus.ticketsservice.api.services.AuthService
 import org.amogus.ticketsservice.domain.interfaces.services.OrderService
 import org.amogus.ticketsservice.domain.models.CreateOrderModel
+import org.amogus.ticketsservice.domain.types.OrderId
 import org.amogus.ticketsservice.domain.types.StationId
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -45,8 +46,24 @@ class OrderController(
     }
 
     @GetMapping("/{orderId}")
-    override suspend fun getOrderInfo(@PathVariable orderId: Int): ResponseEntity<OrderInfoResponse> {
-        throw NotImplementedError()
+    override suspend fun getOrderInfo(
+        @PathVariable orderId: Int,
+        exchange: ServerWebExchange
+    ): ResponseEntity<OrderInfoResponse> {
+        val userId = authService.authorize(exchange)
+        logger.info("User $userId is getting order info for order $orderId")
+
+        val orderInfo = orderService.getOrderInfo(OrderId(orderId), userId)
+
+        return ResponseEntity.ok(
+            OrderInfoResponse(
+                id = orderInfo.id.value,
+                fromStationName = orderInfo.fromStationName.value,
+                toStationName = orderInfo.toStationName.value,
+                status = orderInfo.status.name,
+                created = orderInfo.created.value
+            )
+        )
     }
 
 }
