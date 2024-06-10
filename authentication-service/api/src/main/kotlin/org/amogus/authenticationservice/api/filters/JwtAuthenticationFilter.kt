@@ -2,6 +2,7 @@ package org.amogus.authenticationservice.api.filters
 
 import kotlinx.coroutines.reactor.asCoroutineContext
 import kotlinx.coroutines.withContext
+import org.amogus.authenticationservice.bll.exceptions.IllegalJwtTokenException
 import org.amogus.authenticationservice.domain.interfaces.services.JwtService
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.ReactiveSecurityContextHolder
@@ -20,7 +21,12 @@ class JwtAuthenticationFilter(
         }
 
         val token = jwtService.extractTokenFromHeader(authHeader)
-        val email = jwtService.extractEmail(token)
+        val email = try {
+            jwtService.extractEmail(token)
+        } catch (e: IllegalJwtTokenException) {
+            chain.filter(exchange)
+            return
+        }
         val auth = UsernamePasswordAuthenticationToken(email, token, emptyList())
 
         val securityContext = ReactiveSecurityContextHolder.withAuthentication(auth)
