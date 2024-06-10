@@ -24,7 +24,7 @@ class OpenApiConfiguration(
             .info(Info().title("Authentication-service").version("v1"))
             .servers(
                 listOf(
-                    Server().url("${settings.protocol}://${settings.host}/${webFluxProperties.basePath}")
+                    Server().url("${settings.protocol}://${settings.host}${webFluxProperties.basePath}")
                 )
             )
             .addSecurityItem(SecurityRequirement().addList(schemeName))
