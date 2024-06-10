@@ -8,8 +8,10 @@ import org.amogus.ticketsservice.data.OrdersTable
 import org.amogus.ticketsservice.data.StationsTable
 import org.amogus.ticketsservice.data.repositories.R2dbcOrderInfoRepository
 import org.amogus.ticketsservice.data.repositories.R2dbcOrderRepository
+import org.amogus.ticketsservice.data.repositories.R2dbcStationRepository
 import org.amogus.ticketsservice.domain.interfaces.repositories.OrderInfoRepository
 import org.amogus.ticketsservice.domain.interfaces.repositories.OrderRepository
+import org.amogus.ticketsservice.domain.interfaces.repositories.StationRepository
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -37,6 +39,9 @@ class DataConfig {
     fun dbClient(connectionFactory: ConnectionFactory): R2dbcSqlClient {
         return connectionFactory.coSqlClient(tables().postgresql(StationsTable, OrdersTable))
     }
+
+    @Bean
+    fun stationRepository(dbClient: R2dbcSqlClient): StationRepository = R2dbcStationRepository(dbClient)
 
     @Bean
     fun orderRepository(dbClient: R2dbcSqlClient): OrderRepository = R2dbcOrderRepository(dbClient)
