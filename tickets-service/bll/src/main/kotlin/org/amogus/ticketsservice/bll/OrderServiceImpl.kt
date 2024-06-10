@@ -1,6 +1,8 @@
 package org.amogus.ticketsservice.bll
 
+import io.r2dbc.spi.R2dbcDataIntegrityViolationException
 import org.amogus.ticketsservice.domain.exceptions.OrderNotFoundException
+import org.amogus.ticketsservice.domain.exceptions.StationNotFoundException
 import org.amogus.ticketsservice.domain.interfaces.repositories.OrderInfoRepository
 import org.amogus.ticketsservice.domain.interfaces.repositories.OrderRepository
 import org.amogus.ticketsservice.domain.interfaces.services.OrderService
@@ -27,7 +29,11 @@ class OrderServiceImpl(
             created = OrderCreationTime(dateTimeProvider.now())
         )
 
-        return orderRepository.create(order)
+        return try {
+            orderRepository.create(order)
+        } catch (e: R2dbcDataIntegrityViolationException) {
+            throw StationNotFoundException("One of the stations does not exist")
+        }
     }
 
     override suspend fun getOrderInfo(id: OrderId, userId: UserId): OrderInfo {

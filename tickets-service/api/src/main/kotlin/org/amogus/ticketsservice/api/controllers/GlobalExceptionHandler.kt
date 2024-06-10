@@ -2,6 +2,7 @@ package org.amogus.ticketsservice.api.controllers
 
 import org.amogus.ticketsservice.api.exceptions.AuthException
 import org.amogus.ticketsservice.domain.exceptions.OrderNotFoundException
+import org.amogus.ticketsservice.domain.exceptions.StationNotFoundException
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
@@ -19,6 +20,14 @@ class GlobalExceptionHandler {
     fun handleAuthException(e: AuthException): ProblemDetail {
         val problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.UNAUTHORIZED, "Authorization failed.")
         problemDetail.type = URI.create("https://datatracker.ietf.org/doc/html/rfc9110#section-15.5.2")
+
+        return problemDetail
+    }
+
+    @ExceptionHandler(StationNotFoundException::class)
+    fun handleStationNotFoundException(e: StationNotFoundException): ProblemDetail {
+        val problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, e.message ?: "Station not found.")
+        problemDetail.type = URI.create("https://datatracker.ietf.org/doc/html/rfc9110#section-15.5.5")
 
         return problemDetail
     }
