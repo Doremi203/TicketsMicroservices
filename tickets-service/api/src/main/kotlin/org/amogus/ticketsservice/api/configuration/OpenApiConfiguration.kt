@@ -6,6 +6,7 @@ import io.swagger.v3.oas.models.info.Info
 import io.swagger.v3.oas.models.security.SecurityRequirement
 import io.swagger.v3.oas.models.security.SecurityScheme
 import io.swagger.v3.oas.models.servers.Server
+import org.amogus.ticketsservice.api.configuration.properties.ServerProperties
 import org.springframework.boot.autoconfigure.web.reactive.WebFluxProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -13,7 +14,7 @@ import org.springframework.context.annotation.Configuration
 
 @Configuration
 class OpenApiConfiguration(
-    private val settings: ServerSettings,
+    private val settings: ServerProperties,
     private val webFluxProperties: WebFluxProperties
 ) {
     val schemeName = "bearerAuth"

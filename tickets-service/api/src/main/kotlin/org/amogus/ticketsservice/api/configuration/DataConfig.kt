@@ -3,6 +3,7 @@ package org.amogus.ticketsservice.api.configuration
 import io.r2dbc.spi.ConnectionFactories
 import io.r2dbc.spi.ConnectionFactory
 import io.r2dbc.spi.ConnectionFactoryOptions.*
+import org.amogus.ticketsservice.api.configuration.properties.DBProperties
 import org.amogus.ticketsservice.data.OrdersTable
 import org.amogus.ticketsservice.data.StationsTable
 import org.amogus.ticketsservice.data.repositories.R2dbcOrderInfoRepository
@@ -17,10 +18,10 @@ import org.ufoss.kotysa.r2dbc.coSqlClient
 import org.ufoss.kotysa.tables
 
 @Configuration
-@EnableConfigurationProperties(DBSettings::class)
+@EnableConfigurationProperties(DBProperties::class)
 class DataConfig {
     @Bean
-    fun connectionFactory(dbSettings: DBSettings): ConnectionFactory = ConnectionFactories.get(
+    fun connectionFactory(dbSettings: DBProperties): ConnectionFactory = ConnectionFactories.get(
         builder()
             .option(DRIVER, "pool")
             .option(PROTOCOL, "postgresql")
