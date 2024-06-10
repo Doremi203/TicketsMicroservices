@@ -8,4 +8,5 @@ import org.amogus.ticketsservice.domain.types.UserId
 interface OrderService {
     suspend fun create(model: CreateOrderModel): OrderId
     suspend fun getOrderInfo(id: OrderId, userId: UserId): OrderInfo
+    suspend fun handleCheckOrders()
 }

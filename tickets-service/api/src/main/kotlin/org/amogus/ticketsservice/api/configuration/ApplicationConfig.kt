@@ -6,6 +6,9 @@ import org.amogus.ticketsservice.api.configuration.properties.AuthServiceClientP
 import org.amogus.ticketsservice.api.configuration.properties.ServerProperties
 import org.amogus.ticketsservice.api.services.AuthService
 import org.amogus.ticketsservice.api.services.AuthServiceImpl
+import org.amogus.ticketsservice.api.services.OrderHandlerService
+import org.amogus.ticketsservice.api.services.OrderHandlerServiceImpl
+import org.amogus.ticketsservice.domain.interfaces.services.OrderService
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -21,6 +24,9 @@ class ApplicationConfig {
             .baseUrl(settings.baseUrl)
             .build()
     }
+
+    @Bean
+    fun orderHandlerService(orderService: OrderService): OrderHandlerService = OrderHandlerServiceImpl(orderService)
 
     @Bean
     fun authServiceClient(webClient: WebClient): AuthServiceClient = SpringWebAuthService(webClient)

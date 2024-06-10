@@ -11,6 +11,7 @@ import org.amogus.ticketsservice.domain.types.OrderId
 import org.amogus.ticketsservice.domain.types.OrderStatus
 import org.amogus.ticketsservice.domain.types.UserId
 import org.ufoss.kotysa.R2dbcSqlClient
+import kotlin.random.Random
 
 class R2dbcOrderRepository(
     private val dbClient: R2dbcSqlClient
@@ -33,5 +34,12 @@ class R2dbcOrderRepository(
             .fetchAll()
             .map { it.toOrder() }
             .toList()
+    }
+
+    override suspend fun updateCheckOrders() {
+        (dbClient update OrdersTable
+                set OrdersTable.status eq Random.nextInt(2, 4)
+                where OrdersTable.status eq OrderStatus.CHECK.value
+        ).execute()
     }
 }

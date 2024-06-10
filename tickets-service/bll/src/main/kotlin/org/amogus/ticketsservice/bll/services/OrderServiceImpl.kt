@@ -43,4 +43,8 @@ class OrderServiceImpl(
 
         return orderInfo
     }
+
+    override suspend fun handleCheckOrders() {
+        orderRepository.updateCheckOrders()
+    }
 }

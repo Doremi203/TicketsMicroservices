@@ -9,4 +9,5 @@ interface OrderRepository {
     suspend fun create(order: Order): OrderId
     suspend fun getByUserId(userId: UserId): List<Order>
     suspend fun getByStatus(status: OrderStatus): List<Order>
+    suspend fun updateCheckOrders()
 }
