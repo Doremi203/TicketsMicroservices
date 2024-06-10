@@ -11,15 +11,13 @@ dependencies {
     api(project(":bll"))
 
     implementation(libs.spring.openApi)
+    implementation(libs.spring.actuator)
     implementation(libs.jackson.module.kotlin)
     implementation(libs.spring.webFlux)
     implementation(libs.spring.validation)
     implementation(libs.coroutines.core)
     implementation(libs.coroutines.reactor)
-    //implementation("org.jetbrains.kotlin:kotlin-reflect")
-    //testImplementation("org.springframework.boot:spring-boot-starter-test")
-    //testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
-    //testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    implementation(libs.kotlin.reflect)
 }
 
 jib {

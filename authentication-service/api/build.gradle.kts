@@ -11,6 +11,7 @@ dependencies {
     api(project(":bll"))
 
     implementation(libs.spring.openApi)
+    implementation(libs.spring.actuator)
     implementation(libs.jackson.module.kotlin)
     implementation(libs.spring.webFlux)
     implementation(libs.spring.security)
@@ -18,6 +19,7 @@ dependencies {
     implementation(libs.passay)
     implementation(libs.coroutines.core)
     implementation(libs.coroutines.reactor)
+    implementation(libs.kotlin.reflect)
 }
 
 jib {

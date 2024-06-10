@@ -10,11 +10,14 @@ postgres-jdbc = "42.7.3"
 liquibase-core = "4.28.0"
 coroutines = "1.8.1"
 jackson-module-kotlin = "2.17.1"
+kotlin-reflect = "2.0.0"
 
 [libraries]
 jackson-module-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin", version.ref = "jackson-module-kotlin" }
 coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 coroutines-reactor = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-reactor", version.ref = "coroutines" }
+kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin-reflect" }
+spring-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator", version.ref = "spring" }
 spring-webFlux = { module = "org.springframework.boot:spring-boot-starter-webflux", version.ref = "spring" }
 spring-security = { module = "org.springframework.boot:spring-boot-starter-security", version.ref = "spring" }
 spring-validation = { module = "org.springframework.boot:spring-boot-starter-validation", version.ref = "spring" }
