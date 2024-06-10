@@ -13,5 +13,4 @@ import org.springframework.context.annotation.Configuration
     ServerProperties::class,
     PasswordProperties::class
 )
-class ApplicationConfig {
-}
+class ApplicationConfig
