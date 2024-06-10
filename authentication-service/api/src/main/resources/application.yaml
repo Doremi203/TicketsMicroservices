@@ -17,3 +17,6 @@ jwt:
   secret: ${AUTH_SERVICE_JWT_SECRET}
 springdoc:
   default-produces-media-type: application/json
+server:
+  host: localhost
+  protocol: http

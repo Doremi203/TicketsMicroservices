@@ -15,4 +15,7 @@ spring:
 springdoc:
   default-produces-media-type: application/json
 auth-service-client:
-  base-url: auth-service/auth-api
+  base-url: http://nginx/auth-api
+server:
+  host: localhost
+  protocol: http

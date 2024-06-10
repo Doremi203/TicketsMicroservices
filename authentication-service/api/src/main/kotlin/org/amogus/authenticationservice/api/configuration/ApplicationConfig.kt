@@ -29,7 +29,7 @@ import org.ufoss.kotysa.tables
 
 
 @Configuration
-@EnableConfigurationProperties(DBSettings::class, JwtSettings::class)
+@EnableConfigurationProperties(DBSettings::class, JwtSettings::class, ServerSettings::class)
 class ApplicationConfig(
     private val dbSettings: DBSettings,
     private val jwtSettings: JwtSettings
