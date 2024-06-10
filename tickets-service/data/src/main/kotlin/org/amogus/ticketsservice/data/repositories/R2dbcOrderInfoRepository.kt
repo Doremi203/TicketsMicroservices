@@ -8,7 +8,8 @@ import org.amogus.ticketsservice.domain.dto.OrderDto
 import org.amogus.ticketsservice.domain.dto.toOrderInfo
 import org.amogus.ticketsservice.domain.interfaces.repositories.OrderInfoRepository
 import org.amogus.ticketsservice.domain.models.OrderInfo
-import org.amogus.ticketsservice.domain.types.*
+import org.amogus.ticketsservice.domain.types.OrderId
+import org.amogus.ticketsservice.domain.types.UserId
 import org.ufoss.kotysa.R2dbcSqlClient
 import org.ufoss.kotysa.get
 

@@ -22,6 +22,14 @@ import org.springframework.web.server.ServerWebExchange
                 schema = Schema(implementation = ProblemDetail::class)
             )]
         ),
+        ApiResponse(
+            responseCode = "503",
+            description = "Service unavailable",
+            content = [Content(
+                mediaType = MediaType.APPLICATION_PROBLEM_JSON_VALUE,
+                schema = Schema(implementation = ProblemDetail::class)
+            )]
+        )
     ]
 )
 interface OrderApi {
@@ -51,7 +59,7 @@ interface OrderApi {
                     mediaType = MediaType.APPLICATION_PROBLEM_JSON_VALUE,
                     schema = Schema(implementation = ProblemDetail::class)
                 )]
-            ),
+            )
         ]
 
     )
