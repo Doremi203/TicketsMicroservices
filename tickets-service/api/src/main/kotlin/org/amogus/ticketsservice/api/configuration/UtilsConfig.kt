@@ -1,6 +1,6 @@
 package org.amogus.ticketsservice.api.configuration
 
-import org.amogus.ticketsservice.bll.DateTimeProvider
+import org.amogus.ticketsservice.bll.utils.DateTimeProvider
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import java.time.LocalDateTime

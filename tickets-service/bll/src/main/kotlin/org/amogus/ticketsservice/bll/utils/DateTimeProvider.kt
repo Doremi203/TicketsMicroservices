@@ -1,4 +1,4 @@
-package org.amogus.ticketsservice.bll
+package org.amogus.ticketsservice.bll.utils
 
 import java.time.LocalDateTime
 

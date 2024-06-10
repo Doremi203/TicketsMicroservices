@@ -1,7 +1,7 @@
 package org.amogus.ticketsservice.api.configuration
 
-import org.amogus.ticketsservice.bll.DateTimeProvider
-import org.amogus.ticketsservice.bll.OrderServiceImpl
+import org.amogus.ticketsservice.bll.utils.DateTimeProvider
+import org.amogus.ticketsservice.bll.services.OrderServiceImpl
 import org.amogus.ticketsservice.domain.interfaces.repositories.OrderInfoRepository
 import org.amogus.ticketsservice.domain.interfaces.repositories.OrderRepository
 import org.amogus.ticketsservice.domain.interfaces.services.OrderService
