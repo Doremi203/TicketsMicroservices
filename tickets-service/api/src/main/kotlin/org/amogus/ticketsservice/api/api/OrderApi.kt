@@ -30,9 +30,58 @@ interface OrderApi {
         summary = "Create a new order",
         description = "Create a new order for ticket from one station to another",
     )
+    @ApiResponses(
+        value = [
+            ApiResponse(
+                responseCode = "201",
+                description = "Order created",
+            ),
+            ApiResponse(
+                responseCode = "400",
+                description = "Bad request",
+                content = [Content(
+                    mediaType = MediaType.APPLICATION_PROBLEM_JSON_VALUE,
+                    schema = Schema(implementation = ProblemDetail::class)
+                )]
+            ),
+            ApiResponse(
+                responseCode = "404",
+                description = "Station not found",
+                content = [Content(
+                    mediaType = MediaType.APPLICATION_PROBLEM_JSON_VALUE,
+                    schema = Schema(implementation = ProblemDetail::class)
+                )]
+            ),
+        ]
+
+    )
     suspend fun createOrder(
         body: CreateOrderRequest,
         exchange: ServerWebExchange
     ): ResponseEntity<Int>
+
+    @Operation(
+        summary = "Get order info",
+        description = "Get information about order by id",
+    )
+    @ApiResponses(
+        value = [
+            ApiResponse(
+                responseCode = "200",
+                description = "Order info",
+                content = [Content(
+                    schema = Schema(implementation = OrderInfoResponse::class)
+                )]
+            ),
+            ApiResponse(
+                responseCode = "404",
+                description = "Order not found",
+                content = [Content(
+                    mediaType = MediaType.APPLICATION_PROBLEM_JSON_VALUE,
+                    schema = Schema(implementation = ProblemDetail::class)
+                )]
+            ),
+        ]
+    )
     suspend fun getOrderInfo(orderId: Int): ResponseEntity<OrderInfoResponse>
 }
