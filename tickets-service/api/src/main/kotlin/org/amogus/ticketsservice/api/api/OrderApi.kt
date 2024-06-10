@@ -31,8 +31,7 @@ interface OrderApi {
         description = "Create a new order for ticket from one station to another",
     )
     suspend fun createOrder(
-        request: CreateOrderRequest,
-        token: String,
+        body: CreateOrderRequest,
         exchange: ServerWebExchange
     ): ResponseEntity<Int>
     suspend fun getOrderInfo(orderId: Int): ResponseEntity<OrderInfoResponse>
